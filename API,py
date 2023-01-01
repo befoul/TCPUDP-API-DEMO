@@ -1,0 +1,41 @@
+import socket
+
+class TCPAPI:
+    def __init__(self, host, port):
+        # Create a TCP/IP socket
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Connect to server
+        self.sock.connect((host, port))
+
+    def send(self, data):
+        # Send data
+        self.sock.sendall(data)
+
+    def receive(self, buffer_size):
+        # Receive data
+        return self.sock.recv(buffer_size)
+
+    def close(self):
+        # Close socket
+        self.sock.close()
+
+class UDPAPI:
+    def __init__(self, host, port):
+        # Create a UDP/IP socket
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+        # Bind socket to address and port
+        self.sock.bind((host, port))
+
+    def send(self, data, address):
+        # Send data
+        self.sock.sendto(data, address)
+
+    def receive(self, buffer_size):
+        # Receive data (blocking)
+        return self.sock.recvfrom(buffer_size)
+
+    def close(self):
+        # Close socket
+        self.sock.close()
